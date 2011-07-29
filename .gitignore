@@ -5,7 +5,7 @@ bin
 build
 develop-eggs
 dist
-experimental/catalogqueryplan/difference.so
-experimental/catalogqueryplan/intersection.so
+experimental/btree/difference.so
+experimental/btree/intersection.so
 parts
 var
