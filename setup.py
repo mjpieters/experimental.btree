@@ -22,7 +22,7 @@ codeoptimization = Feature("Optional code optimizations",
 setup(name='experimental.btree',
       version=version,
       description="ZODB BTree optimizations",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
