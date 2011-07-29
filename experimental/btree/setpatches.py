@@ -72,7 +72,7 @@ def patch_weightedIntersection(treetype, settypes):
         logger.debug('Patched %s' % str(treetype.weightedIntersection))
 
 
-def patch_difference(treetype, settype):
+def patch_difference(treetype, settype, module=None):
 
     setdifference = treetype.difference
 
@@ -100,6 +100,10 @@ def patch_difference(treetype, settype):
         treetype._old_difference = treetype.difference
         treetype.difference = difference
         logger.debug('Patched %s' % str(treetype.difference))
+    if module is not None and not hasattr(module, '_old_difference'):
+        module._old_difference = module.difference
+        module.difference = difference
+        logger.debug('Patched %s' % str(module.difference))
 
 
 def patch_cintersection(module, method):
@@ -125,11 +129,38 @@ def apply(no_coptimizations=False):
     from BTrees import IIBTree
     patch_weightedIntersection(IIBTree, (IISet, IITreeSet))
 
+    from Products.ExtendedPathIndex import ExtendedPathIndex
+    from Products.PluginIndexes.common import UnIndex
+    from Products.PluginIndexes.BooleanIndex import BooleanIndex
+    from Products.PluginIndexes.DateIndex import DateIndex
+    from Products.PluginIndexes.DateRangeIndex import DateRangeIndex
+    from Products.PluginIndexes.KeywordIndex import KeywordIndex
+    from Products.PluginIndexes.PathIndex import PathIndex
+    from Products.ZCatalog import Catalog
+
     if HAS_COPTIMIZATIONS:
         patch_cdifference(IIBTree, ciidifference)
+        patch_cdifference(BooleanIndex, ciidifference)
+        patch_cdifference(DateRangeIndex, ciidifference)
         patch_cintersection(IIBTree, ciiintersection)
+        patch_cintersection(BooleanIndex, ciiintersection)
+        patch_cintersection(Catalog, ciiintersection)
+        patch_cintersection(DateIndex, ciiintersection)
+        patch_cintersection(DateRangeIndex, ciiintersection)
+        patch_cintersection(ExtendedPathIndex, ciiintersection)
+        patch_cintersection(PathIndex, ciiintersection)
+        patch_cintersection(UnIndex, ciiintersection)
     else:
         patch_difference(IIBTree, IISet)
+        patch_difference(IIBTree, IISet, BooleanIndex)
+        patch_difference(IIBTree, IISet, DateRangeIndex)
+        patch_intersection(IIBTree, IISet, BooleanIndex)
+        patch_intersection(IIBTree, IISet, Catalog)
+        patch_intersection(IIBTree, IISet, DateIndex)
+        patch_intersection(IIBTree, IISet, DateRangeIndex)
+        patch_intersection(IIBTree, IISet, ExtendedPathIndex)
+        patch_intersection(IIBTree, IISet, PathIndex)
+        patch_intersection(IIBTree, IISet, UnIndex)
 
     from BTrees.IOBTree import IOSet
     from BTrees import IOBTree
@@ -146,6 +177,7 @@ def apply(no_coptimizations=False):
     from BTrees import OOBTree
     patch_intersection(OOBTree, OOSet)
     patch_difference(OOBTree, OOSet)
+    patch_difference(OOBTree, OOSet, KeywordIndex)
 
 
 def unpatch(treetype):

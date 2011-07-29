@@ -42,7 +42,9 @@ setup(name='experimental.btree',
       features = {'codeoptimization': codeoptimization},
       install_requires=[
           'setuptools',
-          'Plone >= 4.1',
+          'Products.ExtendedPathIndex',
+          'Products.ZCatalog',
+          'ZODB3',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]
