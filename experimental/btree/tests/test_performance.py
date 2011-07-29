@@ -60,7 +60,7 @@ class TestIntersection(unittest.TestCase):
         print 'Old x%s: %.6f' % (loop, old)
         print 'New x%s: %.6f' % (loop, new)
         if ciiintersection is not None:
-            print 'Cyt x%s: %.6f' % (loop, c)
+            print 'Cyt x%s: %.6f - factor: %.2f' % (loop, c, old / c)
 
     def test_None(self):
         bigsize = BIGSETSIZE
@@ -223,7 +223,7 @@ class TestDifference(unittest.TestCase):
         print 'Old x%s: %.6f' % (loop, old)
         print 'New x%s: %.6f' % (loop, new)
         if ciidifference is not None:
-            print 'Cyt x%s: %.6f' % (loop, c)
+            print 'Cyt x%s: %.6f - factor: %.2f' % (loop, c, old / c)
 
     def test_heavy_start(self):
         bigsize = BIGSETSIZE
