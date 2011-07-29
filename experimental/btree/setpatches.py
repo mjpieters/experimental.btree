@@ -149,7 +149,10 @@ def apply(no_coptimizations=False):
 
 
 def unpatch(treetype):
-    treetype.intersection = treetype._old_intersection
+    old = getattr(treetype, '_old_intersection', None)
+    if old is None:
+        return
+    treetype.intersection = old
     del treetype._old_intersection
     logger.debug('Removing patch from %s' % str(treetype.intersection))
     treetype.difference = treetype._old_difference
