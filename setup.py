@@ -1,27 +1,27 @@
 from os.path import join
 from setuptools import setup, find_packages, Extension, Feature
 
-version = '3.2.6'
+version = '1.0'
 
-base = join('experimental', 'catalogqueryplan')
+base = join('experimental', 'btree')
 
 codeoptimization = Feature("Optional code optimizations",
     standard=True,
       ext_modules=[
         Extension(
-          name='experimental.catalogqueryplan.difference',
+          name='experimental.btree.difference',
           sources=[join(base, 'difference.c')]
         ),
         Extension(
-          name='experimental.catalogqueryplan.intersection',
+          name='experimental.btree.intersection',
           sources=[join(base, 'intersection.c')],
         ),
       ],
 )
 
-setup(name='experimental.catalogqueryplan',
+setup(name='experimental.btree',
       version=version,
-      description="Static query optimized with one plan",
+      description="ZODB BTree optimizations",
       long_description=open("README.txt").read() + "\n" +
                        open("CHANGES.txt").read(),
       classifiers=[
@@ -30,7 +30,7 @@ setup(name='experimental.catalogqueryplan',
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         ],
-      keywords='plone catalog search',
+      keywords='plone zodb btree',
       author='Jarn AS',
       author_email='info@jarn.com',
       url='http://www.jarn.com/',
@@ -42,7 +42,7 @@ setup(name='experimental.catalogqueryplan',
       features = {'codeoptimization': codeoptimization},
       install_requires=[
           'setuptools',
-          'Plone >= 4.0.3',
+          'Plone >= 4.1',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]

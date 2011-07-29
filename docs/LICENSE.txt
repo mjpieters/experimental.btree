@@ -1,4 +1,4 @@
-experimental.catalogqueryplan is copyright Jarn AS
+experimental.btree is copyright Jarn AS
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

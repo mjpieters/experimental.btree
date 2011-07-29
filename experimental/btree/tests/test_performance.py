@@ -1,7 +1,7 @@
 from time import time
 import unittest
 
-from experimental.catalogqueryplan import setpatches
+from experimental.btree import setpatches
 setpatches.apply(no_coptimizations=True)
 from BTrees.IIBTree import intersection as intersection2
 from BTrees.IIBTree import difference as difference2
@@ -11,11 +11,11 @@ setpatches.unapply()
 from BTrees.IIBTree import intersection
 from BTrees.IIBTree import difference
 
-from BTrees.IIBTree import IISet, IITreeSet, IIBTree
+from BTrees.IIBTree import IISet, IITreeSet
 
 try:
-    from experimental.catalogqueryplan.difference import ciidifference
-    from experimental.catalogqueryplan.intersection import ciiintersection
+    from experimental.btree.difference import ciidifference
+    from experimental.btree.intersection import ciiintersection
 except ImportError:
     ciidifference = None
     ciiintersection = None
@@ -33,30 +33,28 @@ class TestIntersection(unittest.TestCase):
         loop = LOOP
         for i in xrange(loop):
             start = time()
-            res = small.intersection(large)
-            py+=(time()-start)
+            small.intersection(large)
+            py += (time()-start)
 
         print '\nPy x%s:  %.6f' % (loop, py)
 
     def timing(self, small, large):
         new = 0.0
         old = 0.0
-        new2 = 0.0
         c = 0.0
         loop = LOOP
         for i in xrange(loop):
-
             start = time()
-            res = intersection2(small, large)
+            intersection2(small, large)
             new+=(time()-start)
 
             start = time()
-            res = intersection(small, large)
+            intersection(small, large)
             old+=(time()-start)
 
             if ciiintersection is not None:
                 start = time()
-                res = ciiintersection(small, large)
+                ciiintersection(small, large)
                 c+=(time()-start)
 
         print 'Old x%s: %.6f' % (loop, old)
@@ -198,7 +196,7 @@ class TestDifference(unittest.TestCase):
         loop = LOOP
         for i in xrange(10):
             start = time()
-            res = small.difference(large)
+            small.difference(large)
             py+=(time()-start)
 
         print '\nPy x%s:  %.6f' % (loop, py)
@@ -210,16 +208,16 @@ class TestDifference(unittest.TestCase):
         loop = LOOP
         for i in xrange(10):
             start = time()
-            res = difference(small, large)
+            difference(small, large)
             old+=(time()-start)
 
             start = time()
-            res = difference2(small, large)
+            difference2(small, large)
             new+=(time()-start)
 
             if ciidifference is not None:
                 start = time()
-                res = ciidifference(small, large)
+                ciidifference(small, large)
                 c+=(time()-start)
 
         print 'Old x%s: %.6f' % (loop, old)
@@ -297,32 +295,32 @@ class TestDifference(unittest.TestCase):
 
         start = time()
         for i in small:
-            a = large[i]
+            large[i]
         print "\ngetitem distributed %.6f" % (time()-start)
 
         start = time()
         for i in small:
-            a = large[bigsize-1]
+            large[bigsize-1]
         print "getitem end %.6f" % (time()-start)
 
         start = time()
         for i in small:
-            a = large[0]
+            large[0]
         print "getitem start %.6f" % (time()-start)
 
         start = time()
         for i in small:
-            a = large.has_key(i)
+            large.has_key(i)
         print "\nhas_key distributed %.6f" % (time()-start)
 
         start = time()
         for i in small:
-            a = large.has_key(bigsize-1)
+            large.has_key(bigsize-1)
         print "has_key end %.6f" % (time()-start)
 
         start = time()
         for i in small:
-            a = large.has_key(0)
+            large.has_key(0)
         print "has_key start %.6f" % (time()-start)
 
 

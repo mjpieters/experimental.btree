@@ -1,14 +1,14 @@
 from logging import getLogger
 
-logger = getLogger('experimental.catalogqueryplan')
+logger = getLogger('experimental.btree')
 
 SMALLSETSIZE = 200
 BIGSMALLRATIO = 20
 
 HAS_COPTIMIZATIONS = True
 try:
-    from experimental.catalogqueryplan.difference import ciidifference
-    from experimental.catalogqueryplan.intersection import ciiintersection
+    from experimental.btree.difference import ciidifference
+    from experimental.btree.intersection import ciiintersection
 except ImportError:
     HAS_COPTIMIZATIONS = False
 
@@ -121,8 +121,6 @@ def apply(no_coptimizations=False):
     if no_coptimizations:
         HAS_COPTIMIZATIONS = False
 
-    from experimental.catalogqueryplan import catalog
-
     from BTrees.IIBTree import IISet, IITreeSet
     from BTrees import IIBTree
     patch_weightedIntersection(IIBTree, (IISet, IITreeSet))
@@ -130,10 +128,8 @@ def apply(no_coptimizations=False):
     if HAS_COPTIMIZATIONS:
         patch_cdifference(IIBTree, ciidifference)
         patch_cintersection(IIBTree, ciiintersection)
-        patch_cintersection(catalog, ciiintersection)
     else:
         patch_difference(IIBTree, IISet)
-        patch_intersection(IIBTree, IISet, catalog)
 
     from BTrees.IOBTree import IOSet
     from BTrees import IOBTree
