@@ -78,11 +78,15 @@ class TestIntersection(unittest.TestCase):
 
         print '\nIntersection empty set + large treeset'
         self.timing(small, large)
+        print '\nIntersection large treeset + empty set'
+        self.timing(large, small)
 
         small = IITreeSet(xrange(smallsize))
         large = IISet(xrange(bigsize))
         print '\nIntersection empty tree set + large set'
         self.timing(small, large)
+        print '\nIntersection large set + empty tree set'
+        self.timing(large, small)
 
     def test_heavy_start(self):
         bigsize = BIGSETSIZE
@@ -92,20 +96,27 @@ class TestIntersection(unittest.TestCase):
         large = IITreeSet(xrange(smallsize))
         print '\nIntersection small set low values + small treeset'
         self.timing(small, large)
+        print '\nIntersection small treeset + small set low values'
+        self.timing(large, small)
 
         small = IISet(xrange(smallsize))
         large = IITreeSet(xrange(bigsize))
         print '\nIntersection small set low values + large treeset'
         self.timing(small, large)
+        print '\nIntersection large treeset + small set low values'
+        self.timing(large, small)
 
         small = IISet(xrange(smallsize))
         large = IISet(xrange(bigsize))
         print '\nIntersection small set low values + large set'
         self.timing(small, large)
+        print '\nIntersection large set + small set low values'
+        self.timing(large, small)
 
         small = set(xrange(smallsize))
         large = set(xrange(bigsize))
         self.pytiming(small, large)
+        self.pytiming(large, small)
 
     def test_heavy_end(self):
         bigsize = BIGSETSIZE
@@ -115,20 +126,27 @@ class TestIntersection(unittest.TestCase):
         large = IITreeSet(xrange(smallsize))
         print '\nIntersection small set high values + small treeset'
         self.timing(small, large)
+        print '\nIntersection small treeset + small set high values'
+        self.timing(large, small)
 
         small = IISet(xrange(bigsize-smallsize,bigsize))
         large = IITreeSet(xrange(bigsize))
         print '\nIntersection small set high values + large treeset'
         self.timing(small, large)
+        print '\nIntersection large treeset + small set high values'
+        self.timing(large, small)
 
         small = IISet(xrange(bigsize-smallsize,bigsize))
         large = IISet(xrange(bigsize))
         print '\nIntersection small set high values + large set'
         self.timing(small, large)
+        print '\nIntersection large set + small set high values'
+        self.timing(large, small)
 
         small = set(xrange(bigsize-smallsize,bigsize))
         large = set(xrange(bigsize))
         self.pytiming(small, large)
+        self.pytiming(large, small)
 
     def test_even_dist(self):
         bigsize = BIGSETSIZE
@@ -138,20 +156,27 @@ class TestIntersection(unittest.TestCase):
         large = IITreeSet(xrange(smallsize))
         print '\nIntersection small set even distribution + small treeset'
         self.timing(small, large)
+        print '\nIntersection small treeset + small set even distribution'
+        self.timing(large, small)
 
         small = IISet(xrange(0, bigsize, bigsize/smallsize))
         large = IITreeSet(xrange(bigsize))
         print '\nIntersection small set even distribution + large treeset'
         self.timing(small, large)
+        print '\nIntersection large treeset + small set even distribution'
+        self.timing(large, small)
 
         small = IISet(xrange(0, bigsize, bigsize/smallsize))
         large = IISet(xrange(bigsize))
         print '\nIntersection small set even distribution + large set'
         self.timing(small, large)
+        print '\nIntersection large set, small set even distribution'
+        self.timing(large, small)
 
         small = set(xrange(0, bigsize, bigsize/smallsize))
         large = set(xrange(bigsize))
         self.pytiming(small, large)
+        self.pytiming(large, small)
 
     def test_small(self):
         bigsize = BIGSETSIZE
