@@ -4,6 +4,8 @@ Changelog
 1.1 - unreleased
 ----------------
 
+- Correct small/big assignment if only the fist argument is a tree set.
+
 - Avoid intersection optimizations if both arguments are non-tree sets.
   [hannosch]
 
