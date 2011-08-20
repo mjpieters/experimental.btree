@@ -4,7 +4,11 @@ Changelog
 1.1 - unreleased
 ----------------
 
+- Update to Cython 0.15.
+  [hannosch]
+
 - Correct small/big assignment if only the fist argument is a tree set.
+  [hannosch]
 
 - Avoid intersection optimizations if both arguments are non-tree sets.
   [hannosch]
