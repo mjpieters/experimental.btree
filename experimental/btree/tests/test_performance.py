@@ -28,16 +28,6 @@ class TestIntersection(unittest.TestCase):
 
     level = 2
 
-    def pytiming(self, small, large):
-        py = 0.0
-        loop = LOOP
-        for i in xrange(loop):
-            start = time()
-            small.intersection(large)
-            py += (time()-start)
-
-        print 'Py x%s:  %.6f' % (loop, py)
-
     def timing(self, small, large, text=''):
         new = 0.0
         old = 0.0
@@ -118,10 +108,6 @@ class TestIntersection(unittest.TestCase):
         self.timing(large, small,
             'Intersection large set + small set low values')
 
-        small = set(xrange(smallsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
-
     def test_heavy_end(self):
         bigsize = BIGSETSIZE
         smallsize = SMALLSETSIZE
@@ -146,10 +132,6 @@ class TestIntersection(unittest.TestCase):
             'Intersection small set high values + large set')
         self.timing(large, small,
             '\nIntersection large set + small set high values')
-
-        small = set(xrange(bigsize-smallsize,bigsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
 
     def test_even_dist(self):
         bigsize = BIGSETSIZE
@@ -177,12 +159,7 @@ class TestIntersection(unittest.TestCase):
         self.timing(large, small,
             'Intersection large set, small set even distribution')
 
-        small = set(xrange(0, bigsize, bigsize/smallsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
-
     def test_small(self):
-        bigsize = BIGSETSIZE
         smallsize = SMALLSETSIZE
         small = IITreeSet(xrange(smallsize))
         large = IITreeSet(xrange(smallsize))
@@ -191,10 +168,6 @@ class TestIntersection(unittest.TestCase):
         small = IISet(xrange(smallsize))
         large = IISet(xrange(smallsize))
         self.timing(small, large, 'Intersection small sets')
-
-        small = set(xrange(bigsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
 
     def test_large(self):
         bigsize = BIGSETSIZE / 10
@@ -206,24 +179,10 @@ class TestIntersection(unittest.TestCase):
         large = IISet(xrange(bigsize))
         self.timing(small, large, 'Intersection Large sets')
 
-        small = set(xrange(bigsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
-
 
 class TestDifference(unittest.TestCase):
 
     level = 2
-
-    def pytiming(self, small, large):
-        py = 0.0
-        loop = LOOP
-        for i in xrange(10):
-            start = time()
-            small.difference(large)
-            py+=(time()-start)
-
-        print '\nPy x%s:  %.6f' % (loop, py)
 
     def timing(self, small, large):
         new = 0.0
@@ -262,10 +221,6 @@ class TestDifference(unittest.TestCase):
         print '\nDifference Small set low values + large set'
         self.timing(small, large)
 
-        small = set(xrange(smallsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
-
     def test_heavy_end(self):
         bigsize = BIGSETSIZE
         smallsize = SMALLSETSIZE
@@ -278,10 +233,6 @@ class TestDifference(unittest.TestCase):
         large = IISet(xrange(bigsize))
         print '\nDifference Small set high values + large set'
         self.timing(small, large)
-
-        small = set(xrange(bigsize-smallsize,bigsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
 
     def test_even_dist(self):
         bigsize = BIGSETSIZE
@@ -296,20 +247,12 @@ class TestDifference(unittest.TestCase):
         print '\nDifference Small set even distribution + large set'
         self.timing(small, large)
 
-        small = set(xrange(0, bigsize, bigsize/smallsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
-
     def test_large(self):
         bigsize = BIGSETSIZE
         small = IITreeSet(xrange(bigsize))
         large = IITreeSet(xrange(bigsize))
         print '\nDifference Large sets'
         self.timing(small, large)
-
-        small = set(xrange(bigsize))
-        large = set(xrange(bigsize))
-        self.pytiming(small, large)
 
     def test_lookup(self):
         bigsize = 1000000
