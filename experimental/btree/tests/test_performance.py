@@ -108,6 +108,13 @@ class TestIntersection(unittest.TestCase):
         self.timing(large, small,
             'Intersection large set + small set low values')
 
+        small = IITreeSet(xrange(smallsize))
+        large = IISet(xrange(bigsize))
+        self.timing(small, large,
+            'Intersection small treeset + large set')
+        self.timing(large, small,
+            'Intersection large set + small treeset')
+
     def test_heavy_end(self):
         bigsize = BIGSETSIZE
         smallsize = SMALLSETSIZE
